@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -52,11 +51,8 @@ public class MainActivity extends Activity {
         spnRoutes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                Route route = (Route)adapterView.getAdapter().getItem(position);
-
-                String format = "position is %d and value is %s";
-
-                Toast.makeText(MainActivity.this, String.format(format, position, route), Toast.LENGTH_LONG).show();
+                btnDeparture.setText("Station of Departure");
+                btnArrival.setText("Station of Arrival");
             }
 
             @Override
