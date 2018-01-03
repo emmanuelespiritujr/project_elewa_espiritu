@@ -1,10 +1,23 @@
 <resources>
     <string name="app_name">project_elewa_espiritu</string>
     <string-array name="routes">
-        <item>18 Lakeshore West</item>
-        <item>90-91 Lakeshore East</item>
-        <item>21 Milton</item>
-        <item>61 Richmond Hill</item>
-        <item>70-71 Stouffville</item>
+        <item>Lakeshore West</item>
+        <item>Lakeshore East</item>
     </string-array>
+    <string-array name="stations_east">
+        <item>Oakville Go</item>
+        <item>Clarkson Go</item>
+        <item>Port Credit Go</item>
+    </string-array>
+    <string-array name="stations_west">
+        <item>Port Credit Go</item>
+        <item>Clarkson Go</item>
+        <item>Oakville Go</item>
+    </string-array>
+    <string-array name="stations">
+        <item>Oakville Go</item>
+        <item>Clarkson Go</item>
+        <item>Port Credit Go</item>
+    </string-array>
+
 </resources>

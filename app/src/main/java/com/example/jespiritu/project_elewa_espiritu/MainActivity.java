@@ -6,11 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Spinner;
-import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,6 +22,8 @@ public class MainActivity extends Activity {
 
     Spinner spnRoutes;
 
+    String[] stationsWest;
+    String[] stationsEast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +33,13 @@ public class MainActivity extends Activity {
         btnArrival = findViewById(R.id.btn_arrival);
         btnSeeSchedule = findViewById(R.id.btn_seeSchedue);
 
+        stationsWest = getResources().getStringArray(R.array.stations_west);
+        stationsEast = getResources().getStringArray(R.array.stations_east);
+
         spnRoutes = findViewById(R.id.spn_route);
 
         ArrayList<Route> routes = Route.getRoutes(this);
+
 
         ArrayAdapter<Route> adapter = new ArrayAdapter<Route>(
                 this, android.R.layout.simple_spinner_item, routes);
@@ -87,11 +93,14 @@ public class MainActivity extends Activity {
     DialogInterface.OnClickListener listListenerDep = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
-            btnDeparture.setText(itemListDep[i]);
-
-            Toast.makeText(MainActivity.this,
-                    "You Selected " + itemListDep[i],
-                    Toast.LENGTH_SHORT).show();
+            if(spnRoutes.getSelectedItemPosition() == 0)
+            {
+                btnDeparture.setText(stationsWest[i]);
+            }
+            else
+            {
+                btnDeparture.setText(stationsEast[i]);
+            }
         }
     };
 
@@ -99,41 +108,73 @@ public class MainActivity extends Activity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Station of Departure")
-                .setIcon(R.mipmap.ic_launcher_round)
-                .setItems(itemListDep, listListenerDep)
-                .setNegativeButton("Cancel", null);
+        if(spnRoutes.getSelectedItemPosition() == 0)
+        {
+            builder.setTitle("Station of Departure")
+                    .setIcon(R.mipmap.ic_launcher_round)
+                    .setItems(stationsWest, listListenerDep)
+                    .setNegativeButton("Cancel", null);
 
-        AlertDialog dialog = builder.create();
+            AlertDialog dialog = builder.create();
 
-        dialog.show();
+            dialog.show();
+        }
+        else
+        {
+            builder.setTitle("Station of Departure")
+                    .setIcon(R.mipmap.ic_launcher_round)
+                    .setItems(stationsEast, listListenerDep)
+                    .setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = builder.create();
+
+            dialog.show();
+        }
 
     }
 
-    private String[] itemListArr = {"A1", "A2", "A3", "A4", "A5"};
+
 
     DialogInterface.OnClickListener listListenerArr = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
 
-            btnArrival.setText(itemListArr[i]);
+            if(spnRoutes.getSelectedItemPosition() == 0)
+            {
+                btnArrival.setText(stationsWest[i]);
+            }
+            else
+            {
+               btnArrival.setText(stationsEast[i]);
+            }
 
-            Toast.makeText(MainActivity.this,
-                    "You Selected " + itemListArr[i],
-                    Toast.LENGTH_SHORT).show();
         }
     };
 
     private void displayDialogListArr() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if(spnRoutes.getSelectedItemPosition() == 0)
+        {
+            builder.setTitle("Station of Arrival")
+                    .setIcon(R.mipmap.ic_launcher_round)
+                    .setItems(stationsWest, listListenerArr)
+                    .setNegativeButton("Cancel", null);
 
-        builder.setTitle("Station of Arrival")
-                .setIcon(R.mipmap.ic_launcher_round)
-                .setItems(itemListArr, listListenerArr)
-                .setNegativeButton("Cancel", null);
+            AlertDialog dialog = builder.create();
 
-        AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+        else
+        {
+            builder.setTitle("Station of Arrival")
+                    .setIcon(R.mipmap.ic_launcher_round)
+                    .setItems(stationsEast, listListenerArr)
+                    .setNegativeButton("Cancel", null);
 
-        dialog.show();
+            AlertDialog dialog = builder.create();
+
+            dialog.show();
+        }
+
     }
 }
