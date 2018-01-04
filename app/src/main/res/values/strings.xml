@@ -23,9 +23,9 @@
         <item>Port Credit Go</item>
     </string-array>
 
-    <string-array name="OakvilleDep">
+    <string-array name="OakvilleDepE">
         <item>8:32</item>
-        <item>8:42</item>
+        <item>8:43</item>
         <item>9:01</item>
         <item>9:31</item>
         <item>9:56</item>
@@ -35,7 +35,32 @@
         <item>11:56</item>
     </string-array>
 
+    <string-array name="ClarksonDepE">
+        <item>8:40</item>
+        <item>8:51</item>
+        <item>9:09</item>
+        <item>9:39</item>
+        <item>10:04</item>
+        <item>10:39</item>
+        <item>11:09</item>
+        <item>11:34</item>
+        <item>12:04</item>
+    </string-array>
+
+    <string-array name="ClarksonDepW">
+        <item>8:21</item>
+        <item>8:46</item>
+        <item>9:21</item>
+        <item>9:51</item>
+        <item>10:16</item>
+        <item>10:46</item>
+        <item>11:16</item>
+        <item>11:46</item>
+        <item>12:16</item>
+    </string-array>
+
     <string-array name="PortCreditDepW">
+        <item>8:15</item>
         <item>8:40</item>
         <item>9:15</item>
         <item>9:45</item>
@@ -43,5 +68,6 @@
         <item>10:40</item>
         <item>11:10</item>
         <item>11:40</item>
+        <item>12:10</item>
     </string-array>
 </resources>
