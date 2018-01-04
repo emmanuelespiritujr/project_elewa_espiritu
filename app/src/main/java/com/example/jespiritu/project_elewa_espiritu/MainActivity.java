@@ -84,6 +84,7 @@ public class MainActivity extends Activity {
 
                 intent.putExtra("stationDepart", btnDeparture.getText().toString());
                 intent.putExtra("stationArrival", btnArrival.getText().toString());
+                intent.putExtra("routeTaken",spnRoutes.getSelectedItem().toString());
                 startActivityForResult(intent,SECOND_ACTIVITY);
             }
         });

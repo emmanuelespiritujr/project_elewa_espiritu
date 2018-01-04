@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,37 +21,38 @@ public class SecondActivity extends Activity {
     String stationDepart;
     String stationArrival;
 
-    TextView txt;
+    String routeTaken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        txt = findViewById(R.id.txt_timeOfDep);
 
         lstDepartTimes = findViewById(R.id.lstDepartTimes);
-        ArrayList<TimesDeparture> times = TimesDeparture.getTimes(this);
+        ArrayList<TimesDeparture> times = TimesDeparture.getTimesOakville(this);
 
         ArrayAdapter<TimesDeparture> adapter = new ArrayAdapter<TimesDeparture>(
                 this, android.R.layout.simple_spinner_item, times);
 
 
 
-
         Intent intent = getIntent();
 
         if(intent != null) {
-             stationDepart = intent.getStringExtra("stationDepart");
-             stationArrival = intent.getStringExtra("stationArrival");
-
-            txt.setText(stationDepart);
+            stationDepart = intent.getStringExtra("stationDepart");
+            stationArrival = intent.getStringExtra("stationArrival");
+            routeTaken = intent.getStringExtra("routeTaken");
 
         }
 
         if(stationDepart.equals("Oakville Go"))
         {
             lstDepartTimes.setAdapter(adapter);
+        }
+        if(stationDepart.equals("Clarkson Go") && routeTaken.equals("Lakeshore East"))
+        {
+
         }
     }
 }

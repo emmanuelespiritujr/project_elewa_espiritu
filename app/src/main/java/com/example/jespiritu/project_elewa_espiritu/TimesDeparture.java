@@ -16,7 +16,35 @@ public class TimesDeparture {
         this.name = name;
     }
 
-    public static ArrayList<TimesDeparture> getTimes(Context context) {
+    public static ArrayList<TimesDeparture> getTimesOakville(Context context) {
+
+
+        String[] timesString = context.getResources().getStringArray(R.array.OakvilleDep);
+
+        ArrayList<TimesDeparture> times = new ArrayList<>();
+
+        //foreach in java
+        for (String time: timesString){
+            times.add(new TimesDeparture(time));
+        }
+
+        return times;
+    }
+    public static ArrayList<TimesDeparture> getTimesPortCredit(Context context) {
+
+
+        String[] timesString = context.getResources().getStringArray(R.array.OakvilleDep);
+
+        ArrayList<TimesDeparture> times = new ArrayList<>();
+
+        //foreach in java
+        for (String time: timesString){
+            times.add(new TimesDeparture(time));
+        }
+
+        return times;
+    }
+    public static ArrayList<TimesDeparture> getTimesClarkson(Context context) {
 
 
         String[] timesString = context.getResources().getStringArray(R.array.OakvilleDep);
