@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
+    private static final int SECOND_ACTIVITY = 2;
+
     Button btnDeparture;
     Button btnArrival;
     Button btnSeeSchedule;
@@ -79,12 +81,14 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
-                startActivity(intent);
+
+                intent.putExtra("stationDepart", btnDeparture.getText().toString());
+                intent.putExtra("stationArrival", btnArrival.getText().toString());
+                startActivityForResult(intent,SECOND_ACTIVITY);
             }
         });
     }
 
-    private String[] itemListDep = {"D1", "D2", "D3", "D4", "D5"};
 
     DialogInterface.OnClickListener listListenerDep = new DialogInterface.OnClickListener() {
         @Override
