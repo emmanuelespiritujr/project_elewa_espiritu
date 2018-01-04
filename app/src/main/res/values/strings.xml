@@ -4,20 +4,44 @@
         <item>Lakeshore West</item>
         <item>Lakeshore East</item>
     </string-array>
+
     <string-array name="stations_east">
         <item>Oakville Go</item>
         <item>Clarkson Go</item>
         <item>Port Credit Go</item>
     </string-array>
+
     <string-array name="stations_west">
         <item>Port Credit Go</item>
         <item>Clarkson Go</item>
         <item>Oakville Go</item>
     </string-array>
+
     <string-array name="stations">
         <item>Oakville Go</item>
         <item>Clarkson Go</item>
         <item>Port Credit Go</item>
     </string-array>
 
+    <string-array name="OakvilleDep">
+        <item>8:32</item>
+        <item>8:42</item>
+        <item>9:01</item>
+        <item>9:31</item>
+        <item>9:56</item>
+        <item>10:31</item>
+        <item>11:01</item>
+        <item>11:26</item>
+        <item>11:56</item>
+    </string-array>
+
+    <string-array name="PortCreditDep">
+        <item>8:40</item>
+        <item>9:15</item>
+        <item>9:45</item>
+        <item>10:10</item>
+        <item>10:40</item>
+        <item>11:10</item>
+        <item>11:40</item>
+    </string-array>
 </resources>
