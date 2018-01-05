@@ -87,7 +87,7 @@ public class SecondActivity extends Activity {
 
         }
 
-        txtDepartureTime.setText("Select Departure Time From \n" + stationDepart + ":");
+        txtDepartureTime.setText("Select Departure Time From \n" + stationDepart + " Station:");
 
         if(stationDepart.equals("Oakville Go"))
         {
@@ -212,7 +212,7 @@ public class SecondActivity extends Activity {
         {
             newMins = String.valueOf(mins);
         }
-        txtArrivalTime.setText("Estimated Time of Arrival at \n" + stationArrival + ": " + String.valueOf(hours) + ":" + newMins);
+        txtArrivalTime.setText("Estimated Time of Arrival at \n" + stationArrival + " Station: " + String.valueOf(hours) + ":" + newMins);
     }
 
     public void setAlarm(View view) {

@@ -27,6 +27,8 @@ public class MainActivity extends Activity {
     String[] stationsWest;
     String[] stationsEast;
 
+    int i;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,8 @@ public class MainActivity extends Activity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 btnDeparture.setText("Station of Departure");
                 btnArrival.setText("Station of Arrival");
+
+                i = position;
             }
 
             @Override
@@ -86,9 +90,13 @@ public class MainActivity extends Activity {
                         || btnDeparture.getText().equals("Port Credit Go") && btnArrival.getText().equals("Port Credit Go")
                         || btnDeparture.getText().equals("Station of Departure")
                         || btnDeparture.getText().equals("Station of Departure") && btnArrival.getText().equals("Station of Arrival")
-                        || btnArrival.getText().equals("Station of Arrival"))
+                        || btnArrival.getText().equals("Station of Arrival")
+                        || i == 0 && btnDeparture.getText().equals("Oakville Go")
+                        || i == 0 && btnArrival.getText().equals("Port Credit Go")
+                        || i == 1 && btnDeparture.getText().equals("Port Credit Go")
+                        || i == 1 && btnArrival.getText().equals("Oakville Go"))
                 {
-                    Toast.makeText(getApplicationContext(), "Invalid Selection!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Invalid Selection for Travel!", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
