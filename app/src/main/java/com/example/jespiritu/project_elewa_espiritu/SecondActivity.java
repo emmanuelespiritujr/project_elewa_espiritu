@@ -1,7 +1,10 @@
 package com.example.jespiritu.project_elewa_espiritu;
 
-import java.util.List;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class SecondActivity extends Activity {
 
@@ -38,8 +43,14 @@ public class SecondActivity extends Activity {
     TextView txtDepartureTime;
 
     int time;
+    int hours;
+    int mins;
 
     Spinner spnTimer;
+
+    AlarmManager alarm;
+
+    PendingIntent alarmIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,8 +192,8 @@ public class SecondActivity extends Activity {
         String t = String.valueOf(time);
         t = t.substring(0, t.length() -2) + ":" + t.substring(t.length() - 2 , t.length());
         String [] timing = t.split(":");
-        int mins = Integer.parseInt(timing[1]);
-        int hours = Integer.parseInt(timing[0]);
+        mins = Integer.parseInt(timing[1]);
+        hours = Integer.parseInt(timing[0]);
         if(mins > 60)
         {
             mins = mins - 60;
@@ -202,5 +213,40 @@ public class SecondActivity extends Activity {
             newMins = String.valueOf(mins);
         }
         txtArrivalTime.setText("Estimated Time of Arrival at \n" + stationArrival + ": " + String.valueOf(hours) + ":" + newMins);
+    }
+
+    public void setAlarm(View view) {
+
+        alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent myIntent = new Intent(SecondActivity.this, BootReceiver.class);
+        alarmIntent = PendingIntent.getBroadcast(SecondActivity.this, 0, myIntent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hours);
+        calendar.set(Calendar.MINUTE, Integer.parseInt(newMins) - Integer.parseInt(spnTimer.getSelectedItem().toString()));
+
+        alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmIntent);
+
+        PendingIntent pendingIntent = PendingIntent
+                .getActivity(getApplicationContext(),0, myIntent, 0);
+
+
+        int min =  Integer.parseInt(newMins) - Integer.parseInt(spnTimer.getSelectedItem().toString());
+        Notification notify = new Notification.Builder(this)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.dmi)
+                .setTicker("Notification")
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
+                .setContentTitle("Alarm set by DMI")
+                .setContentText("Your alarm has been set to " + String.valueOf(hours) + ":" + String.valueOf(min))
+                .getNotification();
+
+        NotificationManager manager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        manager.notify(1,notify);
+
     }
 }
