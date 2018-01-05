@@ -1,5 +1,6 @@
 package com.example.jespiritu.project_elewa_espiritu;
 
+import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,16 +30,16 @@ public class SecondActivity extends Activity {
 
     String stationDepart;
     String stationArrival;
-
     String routeTaken;
-
     String departTime;
+    String newMins;
 
     TextView txtArrivalTime;
+    TextView txtDepartureTime;
 
     int time;
 
-    String newMins;
+    Spinner spnTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +48,24 @@ public class SecondActivity extends Activity {
 
         txtArrivalTime = findViewById(R.id.txt_timeOfArr);
 
+        txtDepartureTime = findViewById(R.id.txt_timeOfDep);
+
         lstDepartTimes = findViewById(R.id.lstDepartTimes);
 
+        spnTimer = findViewById(R.id.spn_timer);
+
+        List<Integer> setTimer = new ArrayList<Integer>();
+
+        setTimer.add(5);
+        setTimer.add(10);
+        setTimer.add(15);
+
+        ArrayAdapter<Integer> timerAdapter = new ArrayAdapter<Integer>
+                (this, android.R.layout.simple_spinner_item, setTimer);
+
+        timerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spnTimer.setAdapter(timerAdapter);
 
         Intent intent = getIntent();
 
@@ -58,12 +76,14 @@ public class SecondActivity extends Activity {
 
         }
 
+        txtDepartureTime.setText("Select Departure Time From \n" + stationDepart + ":");
+
         if(stationDepart.equals("Oakville Go"))
         {
             ArrayList<TimesDeparture> times = TimesDeparture.getTimesOakville(this);
 
             ArrayAdapter<TimesDeparture> adapter = new ArrayAdapter<TimesDeparture>(
-                    this, android.R.layout.simple_spinner_item, times);
+                    this, android.R.layout.simple_list_item_1, times);
             lstDepartTimes.setAdapter(adapter);
             lstDepartTimes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -92,7 +112,7 @@ public class SecondActivity extends Activity {
             ArrayList<TimesDeparture> times = TimesDeparture.getTimesClarksonE(this);
 
             ArrayAdapter<TimesDeparture> adapter = new ArrayAdapter<TimesDeparture>(
-                    this, android.R.layout.simple_spinner_item, times);
+                    this, android.R.layout.simple_list_item_1, times);
 
             lstDepartTimes.setAdapter(adapter);
             lstDepartTimes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,7 +133,7 @@ public class SecondActivity extends Activity {
             ArrayList<TimesDeparture> times = TimesDeparture.getTimesClarksonW(this);
 
             ArrayAdapter<TimesDeparture> adapter = new ArrayAdapter<TimesDeparture>(
-                    this, android.R.layout.simple_spinner_item, times);
+                    this, android.R.layout.simple_list_item_1, times);
 
             lstDepartTimes.setAdapter(adapter);
             lstDepartTimes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -133,7 +153,7 @@ public class SecondActivity extends Activity {
             ArrayList<TimesDeparture> times = TimesDeparture.getTimesPortCredit(this);
 
             ArrayAdapter<TimesDeparture> adapter = new ArrayAdapter<TimesDeparture>(
-                    this, android.R.layout.simple_spinner_item, times);
+                    this, android.R.layout.simple_list_item_1, times);
 
             lstDepartTimes.setAdapter(adapter);
             lstDepartTimes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -181,6 +201,6 @@ public class SecondActivity extends Activity {
         {
             newMins = String.valueOf(mins);
         }
-        txtArrivalTime.setText(String.valueOf(hours) + ":" + newMins);
+        txtArrivalTime.setText("Estimated Time of Arrival at \n" + stationArrival + ": " + String.valueOf(hours) + ":" + newMins);
     }
 }

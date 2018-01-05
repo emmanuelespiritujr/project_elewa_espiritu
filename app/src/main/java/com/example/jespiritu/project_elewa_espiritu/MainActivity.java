@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class MainActivity extends Activity {
 
     String[] stationsWest;
     String[] stationsEast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +42,6 @@ public class MainActivity extends Activity {
         spnRoutes = findViewById(R.id.spn_route);
 
         ArrayList<Route> routes = Route.getRoutes(this);
-
 
         ArrayAdapter<Route> adapter = new ArrayAdapter<Route>(
                 this, android.R.layout.simple_spinner_item, routes);
@@ -80,12 +81,24 @@ public class MainActivity extends Activity {
         btnSeeSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
+                if(btnDeparture.getText().equals("Oakville Go") && btnArrival.getText().equals("Oakville Go")
+                        || btnDeparture.getText().equals("Clarkson Go") && btnArrival.getText().equals("Clarkson Go")
+                        || btnDeparture.getText().equals("Port Credit Go") && btnArrival.getText().equals("Port Credit Go")
+                        || btnDeparture.getText().equals("Station of Departure")
+                        || btnDeparture.getText().equals("Station of Departure") && btnArrival.getText().equals("Station of Arrival")
+                        || btnArrival.getText().equals("Station of Arrival"))
+                {
+                    Toast.makeText(getApplicationContext(), "Invalid Selection!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
 
-                intent.putExtra("stationDepart", btnDeparture.getText().toString());
-                intent.putExtra("stationArrival", btnArrival.getText().toString());
-                intent.putExtra("routeTaken",spnRoutes.getSelectedItem().toString());
-                startActivityForResult(intent,SECOND_ACTIVITY);
+                    intent.putExtra("stationDepart", btnDeparture.getText().toString());
+                    intent.putExtra("stationArrival", btnArrival.getText().toString());
+                    intent.putExtra("routeTaken",spnRoutes.getSelectedItem().toString());
+                    startActivityForResult(intent,SECOND_ACTIVITY);
+                }
             }
         });
     }
