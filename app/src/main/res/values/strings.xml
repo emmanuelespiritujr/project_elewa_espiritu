@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">project_elewa_espiritu</string>
+    <string name="Station_Departure">Station of Departure</string>
+    <string name="Station_Arrival">Station of Arrival</string>
     <string-array name="routes">
         <item>Lakeshore West</item>
         <item>Lakeshore East</item>
