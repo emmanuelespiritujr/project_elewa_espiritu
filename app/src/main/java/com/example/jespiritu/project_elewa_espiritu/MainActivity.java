@@ -18,11 +18,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -48,6 +51,8 @@ public class MainActivity extends Activity {
     //the variable for the position that represents which route the user is taking
     int i;
 
+    //declaring checkbox for the user to save their favourite station
+    CheckBox chkSave;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +66,21 @@ public class MainActivity extends Activity {
         //setting the lists to the string arrays that we have created
         stationsWest = getResources().getStringArray(R.array.stations_west);
         stationsEast = getResources().getStringArray(R.array.stations_east);
+
+        //initializing the checkbox to the UI's checkbox
+        chkSave = findViewById(R.id.chkbox_Save);
+
+        //setting a method to when the user checks the box
+        chkSave.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                //save the user's choice if the checkbox is checked
+                savePrefs();
+            }
+        });
+
+          //loading the checkbox preference
+         loadPrefs();
 
         //setting the spinner to match the spinner in the UI
         spnRoutes = findViewById(R.id.spn_route);
@@ -82,7 +102,8 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 //set the button to display the pre-set message
-                btnDeparture.setText(R.string.Station_Departure);
+                //btnDeparture.setText(R.string.Station_Departure);
+                loadPrefs();
                 btnArrival.setText(R.string.Station_Arrival);
 
                 //setting the position of the route the user is taking
@@ -147,6 +168,49 @@ public class MainActivity extends Activity {
         });
     }
 
+    /**
+     * Method that saves the user's preference and her/his station
+     */
+    private void savePrefs() {
+        //calling shared preferences to edit it
+        SharedPreferences myPrefs = getPreferences(MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = myPrefs.edit();
+
+        //putting the value of the checkbox into saveStation
+        editor.putBoolean("saveStation",chkSave.isChecked())
+                .apply();
+
+        //if the checkbox is checked, save the station
+        if(chkSave.isChecked())
+        {
+            editor.putString("departingStation",btnDeparture.getText().toString())
+                    .apply();
+        }
+    }
+
+    /**
+     * Method that loads the user's preference and sets his/her station
+     */
+    private void loadPrefs() {
+        //loading the value of the checkbox and setting it
+        SharedPreferences myPrefs = getPreferences(MODE_PRIVATE);
+        chkSave.setChecked(myPrefs.getBoolean("saveStation", false));
+        //if the check box is checked
+        if(chkSave.isChecked())
+        {
+            String station = myPrefs.getString("departingStation",null);
+            //set the text to the saved station
+            btnDeparture.setText(station);
+        }
+        //otherwise, to the pre-set message
+        else
+        {
+            btnDeparture.setText(R.string.Station_Departure);
+        }
+
+    }
+
 
     //when the user selects a station to depart from, the buttons text is set to that station
     DialogInterface.OnClickListener listListenerDep = new DialogInterface.OnClickListener() {
@@ -156,10 +220,12 @@ public class MainActivity extends Activity {
             if(spnRoutes.getSelectedItemPosition() == 0)
             {
                 btnDeparture.setText(stationsWest[i]);
+                savePrefs();
             }
             else
             {
                 btnDeparture.setText(stationsEast[i]);
+                savePrefs();
             }
         }
     };

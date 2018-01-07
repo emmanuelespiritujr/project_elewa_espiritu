@@ -19,6 +19,7 @@ public class TimesDeparture {
     public static ArrayList<TimesDeparture> getTimesOakville(Context context) {
 
 
+        //the list of strings of departure times
         String[] timesString = context.getResources().getStringArray(R.array.OakvilleDepE);
 
         ArrayList<TimesDeparture> times = new ArrayList<>();

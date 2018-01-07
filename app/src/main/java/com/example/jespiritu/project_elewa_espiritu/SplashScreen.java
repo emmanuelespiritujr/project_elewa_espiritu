@@ -15,6 +15,7 @@ public class SplashScreen extends Activity {
             @Override
             public void run() {
                 try {
+                    //setting the splashscreen to 2 seconds
                     sleep(2000);
                     Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                     startActivity(intent);

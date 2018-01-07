@@ -17,9 +17,8 @@ public class Route {
     }
 
     public static ArrayList<Route> getRoutes(Context context) {
-        //method of activity; pass in context reference
-        //String[] provinces = getResources().getStringArray(R.array.provinces);
 
+        //the list of strings of routes the user can take
         String[] routesString = context.getResources().getStringArray(R.array.routes);
 
         ArrayList<Route> routes = new ArrayList<>();
